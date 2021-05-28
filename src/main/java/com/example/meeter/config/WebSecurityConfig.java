@@ -1,6 +1,6 @@
 package com.example.meeter.config;
 
-import com.example.meeter.service.UserDetailsServiceImpl;
+import com.example.meeter.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,13 +34,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors().disable()
                 .csrf().disable()
-                .headers().frameOptions().disable();
+                .headers().frameOptions().disable()
+                .and()
+                .authorizeRequests().anyRequest().authenticated()
+                .and()
+                .addFilter(new JwtFilter(authenticationManager()));
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
-                .ignoring().antMatchers("/h2-console**");
+                .ignoring().antMatchers("/h2-console/**", "/api/login", "/api/register");
     }
 
     @Override

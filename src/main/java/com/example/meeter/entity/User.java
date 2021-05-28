@@ -20,12 +20,13 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+    @Column(unique = true)
     private String username;
     private String password;
     private boolean isEnabled;
 
     @OneToMany(orphanRemoval = true,
-            cascade = {CascadeType.ALL})
+            cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
     private List<DayPlan> dayPlans = new ArrayList<>();
 

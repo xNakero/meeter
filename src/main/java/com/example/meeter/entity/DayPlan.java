@@ -23,9 +23,12 @@ public class DayPlan {
     private LocalTime dayEnd;
 
     @OneToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.DETACH},
+            cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE},
             orphanRemoval = true)
     @JoinColumn(name = "plan_id")
     private List<Meeting> meetings = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

@@ -1,6 +1,8 @@
 package com.example.meeter.config;
 
+import com.example.meeter.entity.RegistrationCode;
 import com.example.meeter.entity.User;
+import com.example.meeter.repository.RegistrationCodeRepository;
 import com.example.meeter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -11,10 +13,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class Runner implements CommandLineRunner {
 
     private final UserRepository userRepository;
+    private final RegistrationCodeRepository registrationCodeRepository;
 
     @Autowired
-    public Runner(UserRepository userRepository) {
+    public Runner(UserRepository userRepository, RegistrationCodeRepository registrationCodeRepository) {
         this.userRepository = userRepository;
+        this.registrationCodeRepository = registrationCodeRepository;
     }
 
 
@@ -25,5 +29,9 @@ public class Runner implements CommandLineRunner {
         user.setUsername("user");
         user.setPassword(new BCryptPasswordEncoder(10).encode("password"));
         userRepository.save(user);
+
+        RegistrationCode registrationCode = new RegistrationCode();
+        registrationCode.setCode("XD");
+        registrationCodeRepository.save(registrationCode);
     }
 }

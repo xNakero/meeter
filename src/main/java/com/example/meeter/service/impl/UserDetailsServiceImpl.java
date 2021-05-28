@@ -1,4 +1,4 @@
-package com.example.meeter.service;
+package com.example.meeter.service.impl;
 
 import com.example.meeter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
