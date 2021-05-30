@@ -25,5 +25,5 @@ public class DayPlanResponseDto {
     @JsonSerialize(using = LocalTimeSerializer.class)
     @JsonProperty("day_end")
     private LocalTime dayEnd;
-    private List<MeetingDto> meetings;
+    private List<TimePeriodDto> meetings;
 }

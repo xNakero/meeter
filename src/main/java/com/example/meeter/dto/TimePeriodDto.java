@@ -5,6 +5,7 @@ import com.example.meeter.serialization.LocalTimeDeserializer;
 import com.example.meeter.serialization.LocalTimeSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +15,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Setter
 @Getter
-public class MeetingDto {
+@AllArgsConstructor
+public class TimePeriodDto {
 
     @JsonSerialize(using = LocalTimeSerializer.class)
     @JsonDeserialize(using = LocalTimeDeserializer.class)
