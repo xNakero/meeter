@@ -30,6 +30,12 @@ public class Runner implements CommandLineRunner {
         user.setPassword(new BCryptPasswordEncoder(10).encode("password"));
         userRepository.save(user);
 
+        User user1 = new User();
+        user1.setEnabled(true);
+        user1.setUsername("admin");
+        user1.setPassword(new BCryptPasswordEncoder(10).encode("password"));
+        userRepository.save(user1);
+
         RegistrationCode registrationCode = new RegistrationCode();
         registrationCode.setCode("XD");
         registrationCodeRepository.save(registrationCode);
