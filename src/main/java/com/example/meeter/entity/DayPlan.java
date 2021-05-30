@@ -19,6 +19,7 @@ public class DayPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long planId;
 
+    private String name;
     private LocalTime dayStart;
     private LocalTime dayEnd;
 

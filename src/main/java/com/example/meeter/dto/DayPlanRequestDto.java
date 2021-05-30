@@ -18,6 +18,7 @@ import java.util.List;
 public class DayPlanRequestDto {
 
     private List<TimePeriodDto> meetings;
+    private String name;
 
     @JsonSerialize(using = LocalTimeSerializer.class)
     @JsonDeserialize(using = LocalTimeDeserializer.class)
