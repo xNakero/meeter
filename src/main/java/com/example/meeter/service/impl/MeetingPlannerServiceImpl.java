@@ -25,12 +25,10 @@ import java.util.stream.Stream;
 @Service
 public class MeetingPlannerServiceImpl implements MeetingPlannerService {
 
-    private final DayPlanRepository dayPlanRepository;
     private final UserRepository userRepository;
 
     @Autowired
-    public MeetingPlannerServiceImpl(DayPlanRepository dayPlanRepository, UserRepository userRepository) {
-        this.dayPlanRepository = dayPlanRepository;
+    public MeetingPlannerServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -61,11 +59,6 @@ public class MeetingPlannerServiceImpl implements MeetingPlannerService {
             dayPlans.add(dayPlan);
         }
         return dayPlans;
-
-//        return user.getDayPlans().stream()
-//                .filter(e -> e.getPlanId().equals(dto.getDayPlanIds()[0]) ||
-//                        e.getPlanId().equals(dto.getDayPlanIds()[1]))
-//                .collect(Collectors.toList());
     }
 
     private List<TimePeriodDto> getFreeTimes(DayPlan dayPlan, LocalTime meetingTime) {
@@ -128,7 +121,6 @@ public class MeetingPlannerServiceImpl implements MeetingPlannerService {
             }
             indexes.set((currentlyUsedFreeTime + 1) % 2, indexes.get((currentlyUsedFreeTime + 1) % 2) + 1);
             if (indexes.get((currentlyUsedFreeTime + 1) % 2) == freeTimes.get((currentlyUsedFreeTime + 1) % 2).size()) {
-                runs = false;
                 break;
             }
             startFreeTime = freeTimes
