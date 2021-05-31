@@ -1,5 +1,6 @@
 package com.example.meeter.service.impl;
 
+import com.example.meeter.config.AppPasswordEncoder;
 import com.example.meeter.dto.LoginDto;
 import com.example.meeter.dto.RegistrationDto;
 import com.example.meeter.dto.TokenDto;
@@ -27,16 +28,18 @@ public class UserServiceImpl implements UserService {
     private final JwtTokenProviderServiceImpl jwtTokenProviderService;
     private final RegistrationCodeRepository registrationCodeRepository;
     private final UserRepository userRepository;
+    private final AppPasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(AuthenticationManager authenticationManager,
                            JwtTokenProviderServiceImpl jwtTokenProviderService,
                            RegistrationCodeRepository registrationCodeRepository,
-                           UserRepository userRepository) {
+                           UserRepository userRepository, AppPasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProviderService = jwtTokenProviderService;
         this.registrationCodeRepository = registrationCodeRepository;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -69,7 +72,7 @@ public class UserServiceImpl implements UserService {
         }
         User user = new User();
         user.setUsername(registrationDto.getUsername());
-        user.setPassword(registrationDto.getPassword());
+        user.setPassword(passwordEncoder.passwordEncoder().encode(registrationDto.getPassword()));
         user.setEnabled(true);
         userRepository.save(user);
         registrationCodeRepository.delete(code);
