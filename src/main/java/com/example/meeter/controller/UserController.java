@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("api")
 @RestController
-@CrossOrigin(origins = "**")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserServiceImpl userService;
