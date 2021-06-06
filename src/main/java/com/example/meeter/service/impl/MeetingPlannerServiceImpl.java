@@ -1,13 +1,13 @@
 package com.example.meeter.service.impl;
 
-import com.example.meeter.dto.TimePeriodDto;
 import com.example.meeter.dto.PossibleMeetingsRequestDto;
 import com.example.meeter.dto.PossibleMeetingsResponseDto;
+import com.example.meeter.dto.TimePeriodDto;
 import com.example.meeter.entity.DayPlan;
 import com.example.meeter.entity.User;
+import com.example.meeter.exceptions.BadRequestException;
 import com.example.meeter.exceptions.ForbiddenException;
 import com.example.meeter.exceptions.NotFoundException;
-import com.example.meeter.repository.DayPlanRepository;
 import com.example.meeter.repository.UserRepository;
 import com.example.meeter.service.MeetingPlannerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +34,7 @@ public class MeetingPlannerServiceImpl implements MeetingPlannerService {
 
     @Override
     public PossibleMeetingsResponseDto organizeMeetings(PossibleMeetingsRequestDto dto) {
+        validatePlansSize(dto);
         List<DayPlan> dayPlans = retrieveDayPlans(dto);
         List<List<TimePeriodDto>> freeTimes = dayPlans.stream()
                 .map(e -> getFreeTimes(e, dto.getMeetingTime()))
@@ -139,5 +140,11 @@ public class MeetingPlannerServiceImpl implements MeetingPlannerService {
             }
         }
         return possibleMeetings;
+    }
+
+    private void validatePlansSize(PossibleMeetingsRequestDto dto) {
+        if (dto.getDayPlanIds().length != 2 || dto.getMeetingTime() == null) {
+            throw new BadRequestException();
+        }
     }
 }
