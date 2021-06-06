@@ -94,5 +94,11 @@ public class DayPlanServiceImpl implements DayPlanService {
                 throw new BadRequestException("One of meetings ends after another meeting starts.");
             }
         }
+        if (dayPlan.getMeetings().get(0).getStart().compareTo(dayPlan.getDayStart()) > 0) {
+            throw new BadRequestException("Start of one of the meetings is before day start");
+        }
+        if (dayPlan.getMeetings().get(dayPlan.getMeetings().size() - 1).getEnd().compareTo(dayPlan.getDayEnd()) > 0) {
+            throw new BadRequestException("End of the last meeting is after day end");
+        }
     }
 }

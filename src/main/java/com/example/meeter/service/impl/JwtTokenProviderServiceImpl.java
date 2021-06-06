@@ -11,7 +11,7 @@ import java.util.Date;
 @Service
 public class JwtTokenProviderServiceImpl implements JwtTokenProviderService {
 
-    private final int EXPIRE_AFTER = 1000 * 60 * 60;
+    private final int EXPIRE_AFTER = 1000 * 60 * 60 * 24;
     private final String secret = "Lj1xiAOz/D+E{E%";
 
     @Override
