@@ -63,6 +63,11 @@ public class MeetingPlannerServiceImpl implements MeetingPlannerService {
     }
 
     private List<TimePeriodDto> getFreeTimes(DayPlan dayPlan, LocalTime meetingTime) {
+        if (dayPlan.getMeetings().size() == 0) {
+            return Stream
+                    .of(new TimePeriodDto(dayPlan.getDayStart(), dayPlan.getDayEnd()))
+                    .collect(Collectors.toList());
+        }
         List<TimePeriodDto> freeTimes = new LinkedList<>();
         int secondsForMeeting = meetingTime.toSecondOfDay();
         int secondsBeforeMeeting = getSecondsTimePeriod(dayPlan.getDayStart(), dayPlan.getMeetings().get(0).getStart());
