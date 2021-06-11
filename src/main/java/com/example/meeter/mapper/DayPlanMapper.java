@@ -7,9 +7,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 @Mapper(componentModel = "spring")
-@Repository
+@Service
 public interface DayPlanMapper {
 
     @Mapping(target = "meetings", source = "meetings")

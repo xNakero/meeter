@@ -1,6 +1,5 @@
 package com.example.meeter.dto;
 
-import com.example.meeter.entity.Meeting;
 import com.example.meeter.serialization.LocalTimeDeserializer;
 import com.example.meeter.serialization.LocalTimeSerializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,7 +17,8 @@ import java.util.List;
 @Setter
 public class DayPlanRequestDto {
 
-    private List<MeetingDto> meetings;
+    private List<TimePeriodDto> meetings;
+    private String name;
 
     @JsonSerialize(using = LocalTimeSerializer.class)
     @JsonDeserialize(using = LocalTimeDeserializer.class)

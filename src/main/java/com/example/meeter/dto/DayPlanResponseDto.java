@@ -17,6 +17,7 @@ public class DayPlanResponseDto {
 
     @JsonProperty("plan_id")
     private Long planId;
+    private String name;
 
     @JsonSerialize(using = LocalTimeSerializer.class)
     @JsonProperty("day_start")
@@ -25,5 +26,5 @@ public class DayPlanResponseDto {
     @JsonSerialize(using = LocalTimeSerializer.class)
     @JsonProperty("day_end")
     private LocalTime dayEnd;
-    private List<MeetingDto> meetings;
+    private List<TimePeriodDto> meetings;
 }

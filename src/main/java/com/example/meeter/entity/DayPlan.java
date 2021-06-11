@@ -19,11 +19,12 @@ public class DayPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long planId;
 
+    private String name;
     private LocalTime dayStart;
     private LocalTime dayEnd;
 
     @OneToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE},
+            cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST},
             orphanRemoval = true)
     @JoinColumn(name = "plan_id")
     private List<Meeting> meetings = new ArrayList<>();
