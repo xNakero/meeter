@@ -95,7 +95,7 @@ public class DayPlanServiceImpl implements DayPlanService {
             }
         }
         if (dayPlan.getMeetings().size() > 0) {
-            if (dayPlan.getMeetings().get(0).getStart().compareTo(dayPlan.getDayStart()) > 0) {
+            if (dayPlan.getMeetings().get(0).getStart().compareTo(dayPlan.getDayStart()) < 0) {
                 throw new BadRequestException("Start of one of the meetings is before day start");
             }
             if (dayPlan.getMeetings().get(dayPlan.getMeetings().size() - 1).getEnd().compareTo(dayPlan.getDayEnd()) > 0) {
