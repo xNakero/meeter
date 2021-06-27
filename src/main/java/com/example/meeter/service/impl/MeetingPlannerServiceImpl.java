@@ -107,7 +107,7 @@ public class MeetingPlannerServiceImpl implements MeetingPlannerService {
         boolean runs = true;
         int currentlyUsedFreeTime;
 
-        while(runs) {
+        while (runs) {
             if (freeTimes.get(0).get(indexes.get(0)).getStart()
                     .isBefore(freeTimes.get(1).get(indexes.get(1)).getStart())) {
                 currentlyUsedFreeTime = 1;
@@ -122,13 +122,28 @@ public class MeetingPlannerServiceImpl implements MeetingPlannerService {
                     .get((currentlyUsedFreeTime + 1) % 2)
                     .get(indexes.get((currentlyUsedFreeTime + 1) % 2))
                     .getEnd();
+            LocalTime endFreeTimeCurrentlyUsed = freeTimes
+                    .get(currentlyUsedFreeTime)
+                    .get(indexes.get(currentlyUsedFreeTime))
+                    .getEnd();
+            if (endFreeTime.isAfter(endFreeTimeCurrentlyUsed)) {
+                endFreeTime = endFreeTimeCurrentlyUsed;
+            }
             if (getSecondsTimePeriod(startFreeTime, endFreeTime) >= secondsForMeeting) {
                 possibleMeetings.add(new TimePeriodDto(startFreeTime, endFreeTime));
             }
-            indexes.set((currentlyUsedFreeTime + 1) % 2, indexes.get((currentlyUsedFreeTime + 1) % 2) + 1);
-            if (indexes.get((currentlyUsedFreeTime + 1) % 2) == freeTimes.get((currentlyUsedFreeTime + 1) % 2).size()) {
-                break;
+            if (endFreeTime.equals(endFreeTimeCurrentlyUsed)) {
+                indexes.set((currentlyUsedFreeTime), indexes.get((currentlyUsedFreeTime)) + 1);
+                if (indexes.get(currentlyUsedFreeTime) == freeTimes.get(currentlyUsedFreeTime).size()) {
+                    break;
+                }
+            } else {
+                indexes.set((currentlyUsedFreeTime + 1) % 2, indexes.get((currentlyUsedFreeTime + 1) % 2) + 1);
+                if (indexes.get((currentlyUsedFreeTime + 1) % 2) == freeTimes.get((currentlyUsedFreeTime + 1) % 2).size()) {
+                    break;
+                }
             }
+
             startFreeTime = freeTimes
                     .get((currentlyUsedFreeTime + 1) % 2)
                     .get(indexes.get((currentlyUsedFreeTime + 1) % 2))
